@@ -1,0 +1,55 @@
+#Given nums = [2, 7, 11, 15], target = 9
+#return [0, 1]
+
+#Can use a for loop, using brute force method but it will take O(n^2).
+#Instead, use a hash map ( dictionary ) to keep record of previous results & speed up look up.
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        
+        #1. create an empty dictionary to keep record of previously calculated results
+        buf_dict={}
+        
+        for i in range(len(nums)):
+            
+            # What we want to look for is nums[i] value  (이 값(key) 필요하니, 해당하는 사람은 index (value)로 찾아오시게)
+            if nums[i] in buf_dict:
+                return [buf_dict[nums[i]],i]
+            
+            # Not present? add to map for future reference (없네, 그럼 나중에 오는 사람은 본인 값으로 찾아오시게)
+            else: 
+                buf_dict[target-nums[i]] = i
+      
+      
+     
+#Solution Number 2 - Brute Force in C language
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* twoSum(int* nums, int numsSize, int target) {
+    int pt,a,b;
+    int *array;
+    array=malloc(sizeof(int)*numsSize);
+    
+    for(int x=0;x<numsSize;x++)
+    {   
+        pt=x;
+        for(int y=pt+1;y<numsSize;y++)
+        {
+            if(nums[pt]+nums[y]==target)
+            {
+                a=pt;
+                b=y;
+                goto end;
+            } 
+        }
+        
+    }
+end:
+    array[0]=a;
+    array[1]=b;
+    
+    
+return array;
+}
